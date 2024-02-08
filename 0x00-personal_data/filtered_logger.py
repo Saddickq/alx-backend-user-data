@@ -3,8 +3,12 @@
 a function called filter_datum that returns the log message obfuscated
 """
 import re
+import mysql.connector
+from os import getenv
 import logging
 from typing import List
+
+PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
 
 class RedactingFormatter(logging.Formatter):
@@ -46,3 +50,29 @@ def filter_datum(fields: List[str], redaction: str,
                          message)
 
     return message
+
+
+def get_logger() -> logging.Logger:
+    """function that takes no arguments"""
+    logger = logging.getLogger("user_data")
+
+    strhd = logging.StreamHandler()
+    fmt = RedactingFormatter(list(PII_FIELDS))
+
+    strhd.setFormatter(fmt)
+    strhd.setLevel(logging.INFO)
+
+    logger.propergate = False
+    logger.addHandler(strhd)
+    return logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """connect to mysql database"""
+    db = mysql.connector.connect(
+            user=getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
+            host=getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
+            password=getenv('PERSONAL_DATA_DB_PASSWORD', ''),
+            database=getenv('PERSONAL_DATA_DB_NAME')
+            )
+    return db
