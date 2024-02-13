@@ -1,2 +1,4 @@
-SimpleAPI/
-__MACOSX/
+
+SimpleAPI/api/__pycache__/
+SimpleAPI/api/v1/__pycache__/
+SimpleAPI/api/v1/views/__pycache__/
