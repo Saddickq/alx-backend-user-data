@@ -1,2 +1,4 @@
 main_*
 .db_User.json
+api/v1/__pycache__/
+api/v1/views/__pycache__/
