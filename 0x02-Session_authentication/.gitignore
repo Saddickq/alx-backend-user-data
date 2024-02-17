@@ -3,3 +3,4 @@ main_*
 api/v1/__pycache__/
 api/v1/views/__pycache__/
 api/v1/auth/__pycache__/
+models/__pycache__/

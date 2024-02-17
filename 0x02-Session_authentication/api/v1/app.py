@@ -32,13 +32,19 @@ elif auth == 'session_auth':
 def before_request():
     """this happens when the user sends a request
     """
-    paths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
+    paths = [
+            '/api/v1/status/',
+            '/api/v1/unauthorized/',
+            '/api/v1/forbidden/',
+            '/api/v1/auth_session/login/'
+            ]
 
     path = request.path
 
     if (auth and auth.require_auth(path, paths)):
 
-        if (not auth.authorization_header(request)):
+        if (not auth.authorization_header(request)
+                and not auth.session_cookie(request)):
             abort(401)
 
         request.current_user = auth.current_user(request)
