@@ -8,9 +8,10 @@ from uuid import uuid4
 from db import DB
 
 
-def _generate_uuid():
+def _generate_uuid() -> str:
     """generate unique id"""
     return str(uuid4())
+
 
 def _hash_password(password: str) -> bytes:
     """Generate hashed password"""
