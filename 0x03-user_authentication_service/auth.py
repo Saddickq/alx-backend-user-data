@@ -3,6 +3,7 @@
 """
 import bcrypt
 from sqlalchemy.orm.exc import NoResultFound
+from user import User
 from db import DB
 
 
