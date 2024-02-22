@@ -53,3 +53,15 @@ class Auth:
         user.session_id = _generate_uuid()
         self._db.update_user(user.id, session_id=user.session_id)
         return user.session_id
+
+    def get_user_from_session_id(self, session_id: str) -> User:
+        """get userfrom session id"""
+        try:
+            user = self._db.find_user_by(email=email)
+            return user
+        except NoResultFound:
+            return None
+
+    def destroy_session(self, user_id: int) -> None:
+        """destroy a stored session"""
+        self._db.update_user(user_id, session_id=None)
